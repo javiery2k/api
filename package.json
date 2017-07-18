@@ -1,0 +1,23 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "api para el modulo de requisiciones",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javiery2k/api.git"
+  },
+  "author": "Javier Moran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/javiery2k/api/issues"
+  },
+  "homepage": "https://github.com/javiery2k/api#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
+}
