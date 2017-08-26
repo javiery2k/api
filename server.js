@@ -1,55 +1,51 @@
 var express = require('express');
-
-var cors = require('cors');
 var app = express();
-const port = process.env.PORT || 3001;
+var cors = require('cors');
+var dbConfig = require('./dbconfig.js');
+var oracledb = require('oracledb');
+oracledb.outFormat = oracledb.OBJECT;
 
 app.use(cors());
 
 /*Autentication*/
-app.route('/session')
-  .get(function(req, res) {
-    const data = {
-      nombre: 'Javier',
-      apellido: 'Moran',
-      photo: 'https://s.gravatar.com/avatar/035e30f83e96379e1567fc976230c8e0'
-    }
-    res.json(data);
-  });
-
-/*Requisiciones*/
-app.route('/requisiciones')
-  .get(function(req, res) {
-    const data =
-      [{
-        id: 1,
-        numero: '0001',
-        fecha: '10/10/2017',
-        descripcion: 'Aqui una descripcion'
-      }, {
-        id: 2,
-        numero: '0002',
-        fecha: '10/10/2017',
-        descripcion: 'Aqui una descripcion'
-      }]
-
-    res.json(data);
+app.route('/session').get((req, res) => {
+  oracledb.getConnection(dbConfig).then((conn) => {
+    return conn.execute("SELECT * FROM usuarios").then((result) => {
+      let obj = {
+        status: 'ok'
+      };
+      if (result.rows.length > 0) {
+        obj.data = result.rows[0];
+        res.json(obj);
+      } else {
+        res.json({status: 'error'});
+      }
+      return conn.close();
+    }).catch((err) => {
+      return conn.close();
+    });
   })
-  .post(function(req, res) {
-    res.send('Agregar nueva requisicion')
-  });
+});
 
-/*Requisicion byId*/
-app.route('/requisiciones/:requisicionId')
-  .get(function(req, res) {
-    const requisicionId = req.params.requisicionId;
-    res.send('Obener la requisicion con id: ' + requisicionId)
+app.route('/requisiciones').get((req, res) => {
+  oracledb.getConnection(dbConfig).then((conn) => {
+    return conn.execute("SELECT * FROM requisiciones WHERE 1=1").then((result) => {
+      if (result.rows.length > 0)
+        res.json(result.rows);
+      else
+        res.json({});
+      return conn.close();
+    }).catch((err) => {
+      console.error(err);
+      return conn.close();
+    });
   })
-  .post(function(req, res) {
-    const requisicionId = req.params.requisicionId;
-    res.send('Actualizar la requisicion con id: ' + requisicionId)
-  });
+});
 
-app.listen(3001, function() {
-  console.log('RESTful API server started on: ' + port);
+app.all('*', (req, res) => {
+  res.json({status: 'error', data: {}});
+});
+
+app.listen(3001, () => {
+  console.log('RESTful API server started on: 3001');
 });
