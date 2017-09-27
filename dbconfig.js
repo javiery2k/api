@@ -65,7 +65,6 @@
  *   Use 'lsnrctl services' on the database server to find available services
  *
  *****************************************************************************/
-
 module.exports = {
   user          : process.env.NODE_ORACLEDB_USER || "bddatos",
 
@@ -80,5 +79,5 @@ module.exports = {
 
   // Setting externalAuth is optional.  It defaults to false.  See:
   // https://github.com/oracle/node-oracledb/blob/master/doc/api.md#extauth
-  externalAuth  : process.env.NODE_ORACLEDB_EXTERNALAUTH ? true : false
+  externalAuth  : process.env.NODE_ORACLEDB_EXTERNALAUTH ? false : false
 };
