@@ -24,9 +24,6 @@ var api = {
             const data = {};
             const scheme = dbScheme[table];
             const id = req.body[scheme[0]] || 0;
-            console.log(req.params)
-            console.log(id)
-            console.log(scheme[0])
             const metodo = (id > 0) ? 'edit' : 'add';
 
             Object.keys(scheme).map((index) => {
@@ -62,37 +59,6 @@ var api = {
             data['id'] = { type: oracledb.NUMBER, dir: oracledb.BIND_OUT };
             resolve({ sql: sql, data: data });
         });
-    },
-    getSchemeBK: (table, req) => {
-        return new Promise((resolve) => {
-            const params = [];
-            const values = [];
-            const data = {};
-            const scheme = dbScheme[table];
-            Object.keys(scheme).map((index) => {
-                params.push(`${scheme[index]}`);
-                if (parseInt(index) !== 0) {
-                    values.push(`:${scheme[index]}`);
-                    if (scheme[index] === 'fecha' && (req.body[scheme[index]] === null || req.body[scheme[index]] === '' || req.body[scheme[index]] === 'undefined')) {
-                        data[scheme[index]] = new Date();
-                    } else {
-                        data[scheme[index]] = req.body[scheme[index]] || '';
-                    }
-                }
-            });
-            data['id'] = { type: oracledb.NUMBER, dir: oracledb.BIND_OUT };
-            resolve({ params: params, values: values, data: data });
-        });
-    },
-    getQuery: (table, req) => {
-        return new Promise((resolve) => {
-            const curpage = req.query.pageNumber || 1;
-            const perpage = req.query.perpage || 10;
-            const start = ((curpage * perpage) - perpage) + 1;
-            const end = (curpage * perpage);
-            const sql = `SELECT * FROM (SELECT ROWNUM rnum, a.* FROM (select (COUNT(*) OVER ()) as total, resultado.* from ${table} resultado order by ${dbScheme[table][0]} desc) a) WHERE rnum BETWEEN ${start} AND ${end}`;
-            resolve({ sql: sql });
-        });
     }
 }
 
@@ -101,7 +67,10 @@ var api = {
 app.route('/login').post((req, res) => {
     oracledb.getConnection(dbConfig).then((conn) => {
         conn.execute("select * from usuarios where usuario=:usuario and password=:password", [req.body.usuario, req.body.password]).then((result) => {
-            res.json({ status: 'ok', rows: result.rows });
+            if (result.rows.length > 0)
+                res.json({ status: 'ok', rows: result.rows });
+            else
+                res.json({ status: 'error', error: 'Usuario o password invalidos.' });
         }).catch((error) => {
             res.json({ status: 'error', error: error.message });
         });
@@ -133,7 +102,6 @@ app.route('/:method/').get((req, res) => {
     const table = req.params.method;
     if (dbScheme[table]) {
         api.getScheme(table, req).then((result) => {
-            console.log(result)
             oracledb.getConnection(dbConfig).then((conn) => {
                 conn.execute(result.sql, result.data).then((result) => {
                     res.json({ status: 'ok', id: result.outBinds.id[0] });
