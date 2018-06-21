@@ -1,30 +1,31 @@
 module.exports = {
     "proveedores": [
         'idproveedor',
-        'nombre_contacto',
-        'cargo_contacto',
-        'email_contacto',
+        'nombre',
+        'website',
+        'giro_comercial',
+        'descripcion',
+        'razon_social',
+        'ruc',
         'direccion',
         'ciudad',
         'pais',
+        'nombre_contacto',
+        'email_contacto',
         'telefono',
-        'url',
-        'descripcion',
-        'status',
-        'codigo',
-        'tipo_licencia',
-        'ruc',
         'fax',
-        'dv',
+        'status',
+        'logo',
         'fecha'
     ],
-    "activos": [
-        'idactivo',
+    "catalogo": [
+        'idcatalogo',
         'tipoitem',
         'codigo',
         'nombre',
         'marca',
         'descripcion',
+        'idobjeto_gasto',
         'fecha'
     ],
     "medidas": [
@@ -32,7 +33,7 @@ module.exports = {
         'abreviatura',
         'nombre',
         'descripcion',
-        'fecha'        
+        'fecha'
     ],
     "requisiciones": [
         'idrequisicion',
@@ -65,5 +66,26 @@ module.exports = {
         'itbm',
         'total',
         'observaciones'
+    ],
+    "usuarios": [
+        'idusuario',
+        'idunidad',
+        'nombre',
+        'apellido1',
+        'apellido2',
+        'usuario',
+        'telefono',
+        'estatus',
+        'fecha',
+        'fecha_nacimiento',
+        'cargo',
+        'descripcion'
+    ],
+    "objeto_gasto": [
+        'idobjeto_gasto',
+        'codigo',
+        'nombre',
+        'descripcion',
+        'fecha'
     ]
 };
