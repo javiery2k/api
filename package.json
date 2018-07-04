@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "api para el modulo de requisiciones",  
+  "description": "api para el modulo de requisiciones",
   "scripts": {
     "start": "node server.js"
   },
@@ -24,5 +24,9 @@
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
-  }
+  },
+  "engines": {
+    "node": "8.4.0",
+    "npm": "5.3.0"
+  }  
 }
