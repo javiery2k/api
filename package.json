@@ -1,8 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "api para el modulo de requisiciones",
-  "main": "app.js",
+  "description": "api para el modulo de requisiciones",  
   "scripts": {
     "start": "node server.js"
   },
