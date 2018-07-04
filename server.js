@@ -8,15 +8,20 @@ const bodyParser = require('body-parser')
 const mysql = require('mysql');
 const momentFormat = 'YYYY-MM-DD HH:mm:ss';
 
-
-//mysql://be8827bf945ca0:b1d4cc6f@us-cdbr-iron-east-04.cleardb.net/heroku_e70d0fe191f7c53?reconnect=true
+/*var connection = mysql.createConnection({
+    host: 'localhost',
+    connectionLimit: 1,
+    user: 'root',
+    password: '',
+    database: 'bddatos'
+});*/
 
 var connection = mysql.createConnection({
-    host: 'us-cdbr-iron-east-04.cleardb.net',
+    host: 'g8mh6ge01lu2z3n1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     connectionLimit: 1,
-    user: 'be8827bf945ca0',
-    password: 'b1d4cc6f',
-    database: 'heroku_e70d0fe191f7c53'
+    user: 'y39bu9wx750m5821',
+    password: 'awp14himxhb37ad9',
+    database: 'qwok9hiss0vhurnr'
 });
 
 
@@ -25,7 +30,7 @@ app.use(cors());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
     extended: false
-}));
+}))
 
 
 var api = {
