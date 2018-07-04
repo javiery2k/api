@@ -318,6 +318,4 @@ app.all('*', (req, res) => {
 
 /*Servidor escuchando por el puerto 3001*/
 var port = 3001;
-app.listen(port, () => {
-    console.log('RESTful API server iniciado en el puerto: ' + port);
-});
+app.listen();
