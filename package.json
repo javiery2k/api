@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "api para el modulo de requisiciones",
   "scripts": {
-    "start": "node server.js",
+    "start": "node ./bin/www",
     "dev": "nodemon server.js -e js,html"
   },
   "repository": {
