@@ -8,15 +8,15 @@ const bodyParser = require('body-parser')
 const mysql = require('mysql');
 const momentFormat = 'YYYY-MM-DD HH:mm:ss';
 
-/*var connection = mysql.createConnection({
+var connection = mysql.createConnection({
     host: 'localhost',
     connectionLimit: 1,
     user: 'root',
     password: '',
     database: 'bddatos'
-});*/
+});
 
-var connection = mysql.createConnection(process.env.JAWSDB_URL);
+//var connection = mysql.createConnection(process.env.JAWSDB_URL);
 
 
 app.use(cors());
