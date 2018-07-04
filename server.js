@@ -16,13 +16,7 @@ const momentFormat = 'YYYY-MM-DD HH:mm:ss';
     database: 'bddatos'
 });*/
 
-var connection = mysql.createConnection({
-    host: 'g8mh6ge01lu2z3n1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    connectionLimit: 1,
-    user: 'y39bu9wx750m5821',
-    password: 'awp14himxhb37ad9',
-    database: 'qwok9hiss0vhurnr'
-});
+var connection = mysql.createConnection(process.env.JAWSDB_URL);
 
 
 app.use(cors());
