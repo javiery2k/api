@@ -4,7 +4,7 @@
   "description": "api para el modulo de requisiciones",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
