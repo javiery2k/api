@@ -7,23 +7,24 @@ const bodyParser = require('body-parser')
 const mysql = require('mysql');
 const momentFormat = 'YYYY-MM-DD HH:mm:ss';
 
-if (window.location.host === 'localhost') {
-  var connection = mysql.createConnection({
-    host: 'localhost',
-    connectionLimit: 1,
-    user: 'root',
-    password: '',
-    database: 'bddatos'
-  });
-} else {
-  var connection = mysql.createConnection({
-    host: 'g8mh6ge01lu2z3n1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    connectionLimit: 1,
-    user: 'y39bu9wx750m5821',
-    password: 'awp14himxhb37ad9',
-    database: 'qwok9hiss0vhurnr'
-  });
-}
+/*
+var connection = mysql.createConnection({
+  host: 'localhost',
+  connectionLimit: 1,
+  user: 'root',
+  password: '',
+  database: 'bddatos'
+});*/
+
+var connection = mysql.createConnection({
+  host: 'g8mh6ge01lu2z3n1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  connectionLimit: 1,
+  user: 'y39bu9wx750m5821',
+  password: 'awp14himxhb37ad9',
+  database: 'qwok9hiss0vhurnr'
+});
+
+app.set('port', (process.env.PORT || 3001));
 
 app.use(cors());
 
@@ -323,6 +324,6 @@ app.all('*', (req, res) => {
 });
 
 // get our server running
-app.listen(port, () => {
-    console.log("App up and running on" + port);
+app.listen(app.get('port'), () => {
+  console.log("Node app is running on port:", app.get('port'));
 });

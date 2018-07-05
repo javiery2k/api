@@ -2,10 +2,10 @@
   "name": "api",
   "version": "1.0.0",
   "description": "Api para el modulo de requisiciones",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "dev": "nodemon server.js -e js,html"
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js -e js,html"
   },
   "repository": {
     "type": "git",
