@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "api para el modulo de requisiciones",
+  "description": "Api para el modulo de requisiciones",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
