@@ -141,24 +141,19 @@ app.route('/autocomplete/:method/').get((req, res) => {
   const table = req.params.method;
   if (dbScheme[table]) {
     api.getAutocomplete(req).then((obj) => {
-      connection.getConnection(dbConfig).then((conn) => {
-        conn.execute(obj.sql, {}).then((result) => {
-          res.json({
-            status: 'ok',
-            rows: api.lowercaseKeys(result.rows)
-          });
-        }).catch((error) => {
+      connection.query(obj.sql, (error, results) => {
+        if (error) {
           res.json({
             status: 'error',
-            error: error.message
+            error: error
           });
-        });
-      }).catch(function(err) {
-        res.json({
-          status: 'error',
-          error: 'problema de conexion'
-        });
-      });
+        } else {
+          res.json({
+            status: 'ok',
+            rows: results
+          });
+        }
+      })
     })
   } else {
     res.json({
